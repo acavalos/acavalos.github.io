@@ -4,7 +4,6 @@ highlighter:      pygments
 
 # Permalinks
 permalink:        pretty
-relative_permalinks: true
 
 # Setup
 avatar:           https://avatars1.githubusercontent.com/u/44785839?s=400&u=7736abb34f4b291aadaeda36b33247fe388fc8e7&v=4
