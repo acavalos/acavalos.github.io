@@ -26,7 +26,7 @@ But this example is overdone, not simple enough for the layman, and overall bori
 Goodbye differentials, hello recursion. While my mathematical gut tells me the maths to follow is heavily tied to Partial Differential Equations(and maybe even Complex Analysis!), the following should be accessible to those who have completed basic calculus. 
 
 ## The Process
-For our simulation, we will start with N=7500 'dust particles'. For every frame, will feed each particles' x and y coordinates into the following system of polynomials where $$|a_i|,|b_i| < 1 for i\in[1,N]$$:
+For our simulation, we will start with N=7500 'dust particles'. For every frame, will feed each particles' x and y coordinates into the following system of polynomials where $$|a_i|,|b_i| < 1 for i\ in [1,N]$$:
 
 <p align="center">
 $$
