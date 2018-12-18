@@ -13,11 +13,9 @@ The Lorenz Attractor can be visualized by numerically solving the system of part
 
 <p align="center">
 $$  
-\begin{align}
-\frac{dx,dt} & = \sigma(y-x) \\
-\frac{dy,dt} & = x(\rho-z)-y \\  
-\frac{dz,dt} & = xy - \beta z  
-\end{align}
+\frac{dx,dt} = \sigma(y-x) \\
+\frac{dy,dt} = x(\rho-z)-y \\  
+\frac{dz,dt} = xy - \beta z  
 $$  
 </p>
 
