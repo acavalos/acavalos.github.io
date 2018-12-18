@@ -3,6 +3,9 @@ published: true
 ---
 ## Testing
 
-$$P_x(x,y) = a_0+a1_x+a_2y+a+3xy+a_4x^2+a5_y^2$$
+ {% raw %} 
+ 	
+$$a^2 + b^2 = c^2$$--> note that all equations between these tags will not need escaping!	
 
+ {% endraw %} 
 <iframe src="https://www.openprocessing.org/sketch/646277/embed/" width="650" height="670"></iframe>
