@@ -12,9 +12,9 @@ One of my favorite objects to visualize are strange attractors. Those interested
 The Lorenz Attractor can be visualized by numerically solving the system of partial differential equations:
 
 <p align="center">
-$$dx/dt = \sigma(y-x)$$  
-$$dy/dt = x(\row-z)-y$$  
-$$dz/dt = xy - \betaz$$  
+$$\frac{dx,dt} = \sigma(y-x)$$  
+$$\frac{dy,dt} = x(\rho-z)-y$$  
+$$\frac{dz,dt} = xy - \Betaz$$  
 </p>
 
 $$P_x(x,y) = a_0+a_1x+a_2y+a_3xy+a_4x^2+a_5y^2$$  
