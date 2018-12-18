@@ -20,7 +20,13 @@ A famous model for weather systems, this object might be the real origin of "The
   <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif">
 </p>  
 
-But this example is overdone, not simple enough for the layman, and overall boring. 
+But this example is overdone, not simple enough for the layman, and overall boring.  
+
+## Strange Attractors Birthed From Quadratic Polynomials
+Goodbye differentials, hello recursion. While my mathematical gut tells me the maths to follow is heavily tied to Partial Differential Equations(and maybe even Complex Analysis!), the following should be accessible to those who have completed basic calculus.  
+
+### The Process
+For our simulation, we will start with N amount of 'dust particles'. 
 
 <p align="center">
 $$P_x(x,y) = a_0+a_1x+a_2y+a_3xy+a_4x^2+a_5y^2$$  
