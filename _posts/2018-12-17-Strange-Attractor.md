@@ -45,13 +45,8 @@ Since we need the particles to both NOT escape to infinity and NOT converge onto
 </p>
 
 ### Controls
-$$
-\begin{aligned}
-'wasd' & : Translate image \\
-'r' & : Zoom In \\
-'f' & : Zoom Out \\
-'m' & : Change Mode \\
-'n' & : Generate New Attractor \\
-\end{aligned}
-$$
-
+'wasd': Translate image  
+'r': Zoom In  
+'f': Zoom Out  
+'m': Change Mode  
+'n': Generate New Attractor  
