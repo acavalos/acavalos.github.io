@@ -37,12 +37,12 @@ P_y(x,y) & = b_0+b_1x+b_2y+b_3xy+b_4x^2+b_5y^2
 $$ 
 </p>  
   
-&&
+$$
 \begin{aligned}
-x_n & = P_x(x_(n-1),y_(n-1))\\
+x_n & = P_x(x_(n-1),y_(n-1)) \\
 y_n & = P_y(x_(n-1),y_(n-1))
 \end{aligned}
-&&
+$$
 
 Since we need the particles to both NOT escape to infinity and NOT converge onto a fixed point/path(both of these are inevitable), we require each particle to be within the unit circle, and have a lifespan of at most 20 frames. By doing this, we improve our chances at a successful, interesting image, and spend less resources checking for divergence each frame. 
 
