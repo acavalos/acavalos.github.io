@@ -4,7 +4,7 @@ title: About
 published: true
 ---
 
-Aspiring data scientist. Casual math enthusiast. Full time student.
+Aspiring data scientist. Casual math enthusiast. Total n00b..
 
 ## *Education*
 
