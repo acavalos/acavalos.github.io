@@ -21,8 +21,9 @@ July 2017 - Present
 - Conduct daily food safety audits to ensure CA Retail Food Code is met.
 - Provide on-site support to truck operators during service.
 
-**Sodexo – Star Ginger** | Davis, CA  
-*Food Service Manager*  
+**Sodexo** | Davis, CA  
+*Food Service Manager*
+July 2016 - June 2017
 - Acted as temporary manager in absence of career manager.  
 - Scheduled 20 student and career employees for truck operation.  
 - Managed inventory in its entirety: utensils, meats, produce.  
