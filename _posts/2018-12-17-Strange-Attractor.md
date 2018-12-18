@@ -39,8 +39,8 @@ $$
   
 $$
 \begin{aligned}
-x_n & = P_x(x_(n-1),y_(n-1)) \\
-y_n & = P_y(x_(n-1),y_(n-1))
+x_n & = P_x(x_{n-1},y_{n-1}) \\
+y_n & = P_y(x_{n-1},y_{n-1})
 \end{aligned}
 $$
 
