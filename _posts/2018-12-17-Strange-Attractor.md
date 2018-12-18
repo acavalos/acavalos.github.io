@@ -29,8 +29,12 @@ Goodbye differentials, hello recursion. While my mathematical gut tells me the m
 For our simulation, we will start with N amount of 'dust particles'. For every frame, will will feed each particles x and y coordinates into the following system of polynomials:
 
 <p align="center">
-$$P_x(x,y) & = a_0+a_1x+a_2y+a_3xy+a_4x^2+a_5y^2$$  
-$$P_y(x,y) & = b_0+b_1x+b_2y+b_3xy+b_4x^2+b_5y^2$$ 
+$$
+\begin{aligned}
+P_x(x,y) & = a_0+a_1x+a_2y+a_3xy+a_4x^2+a_5y^2 \\ 
+P_y(x,y) & = b_0+b_1x+b_2y+b_3xy+b_4x^2+b_5y^2
+\end{aligned}
+$$ 
 </p>  
 
 Since we need the particles to both NOT escape to infinity and NOT converge onto a fixed point or path(both of these things are inevitable), we have two necessary constraints; the polynomial coefficients and dust particles will be spawned within the unit circle, and each particle will only update at most 20 times before being regenerated into a new random point. By doing this, we improve our chances at a successful, interesting image, and spend less resources checking for divergence. 
