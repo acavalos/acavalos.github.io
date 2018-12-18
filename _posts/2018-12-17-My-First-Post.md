@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 Something always stuck in my mind is some kind words from a person with the type of success I aspire to achieve. "As long as you keep working, there is going to be a payoff. It may not be soon, but with enough time, it'll happen." In my narcissistic mind, I convinced myself I was smart enough to coast my way through the last few years, waiting for a payoff I never deserved. This blog is me putting a foot forward and putting myself out there.
     
