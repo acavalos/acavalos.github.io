@@ -39,7 +39,8 @@ $$
 
 Since we need the particles to both NOT escape to infinity and NOT converge onto a fixed point or path(both of these things are inevitable), we have two necessary constraints; the polynomial coefficients and dust particles will be spawned within the unit circle, and each particle will only update at most 20 times before being regenerated into a new random point. By doing this, we improve our chances at a successful, interesting image, and spend less resources checking for divergence. 
 
-## The Simulation 
+## The Simulation  
+Below is the simulation, produced in Processing, following by some simple controls. I high recommend you to change the Mode. The default is a visualization of where the dust is most dense. The other is a real-time visualization of the dusts movements. By viewing both modes, one gets a real appreciation of how order underlies the chaos. 
 <p align="center">
 <iframe src="https://www.openprocessing.org/sketch/646277/embed/" width="650" height="670"></iframe>
 </p>
