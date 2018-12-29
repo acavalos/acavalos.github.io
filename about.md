@@ -14,7 +14,11 @@ Aug 2011 - June 2016
   
 ## *Interests*
 
-- Improve understanding of investment and understanding of securities exchange.
+- Improve understanding of investment and understanding of securities exchange(because I suck).
 - Improve competence in coding, specifically in Python.
 - Furthur pursue interest in mathematics.
 - Creating generative art that is mathematically driven.
+
+## *Email*
+
+acavalos93@gmail.com
