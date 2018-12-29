@@ -273,8 +273,8 @@ def performancePlot( truck, truck_name ):
 #Get total performance
 performancePlot(reviews, 'Total Performance')
 ```
-
 </details>
+
 <p align = "center">
 <img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/Total_Performance.png" width="700"/>
 </p>
