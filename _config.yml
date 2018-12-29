@@ -4,8 +4,6 @@ highlighter:      rouge
 # Permalinks
 permalink:        pretty
 markdown: 		  kramdown
-kramdown:
-  parse_block_html: true
 mathjax: 	      true
 # Setup
 avatar:           https://avatars1.githubusercontent.com/u/44785839?s=400&u=7736abb34f4b291aadaeda36b33247fe388fc8e7&v=4
