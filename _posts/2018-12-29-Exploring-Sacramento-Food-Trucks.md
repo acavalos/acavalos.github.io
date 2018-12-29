@@ -124,8 +124,8 @@ for our purposes. I opted to keep lines, instead of candlesticks.
 
 <details>
 <summary> <b>Plot Code (CLICK ME)</b> </summary>
-<code>
- 
+
+```Python 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import matplotlib.dates as mdates
@@ -270,8 +270,8 @@ def performancePlot( truck, truck_name ):
 
 #Get total performance
 performancePlot(reviews, 'Total Performance')
+```
 
-</code>
 </details>
 
 <p align = "center">
