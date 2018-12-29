@@ -42,6 +42,7 @@ print(len(business))
 ```Python
 business.sort_values(['count']).iloc[-15:-1,:]
 ```
+
 |business_name|review_stars|count|
 |:------------------------------------|:-------------|:----|
 |        Kado’s Asian Grill Food Truck  |    3.952381  |   84|
@@ -71,6 +72,7 @@ business.sort_values(['count']).iloc[-15:-1,:]
 ```Python
 business[business['count'] > 9].sort_values(['review_stars']).iloc[-15:-1,:]
 ``` 
+
 |business_name|review_stars|count|
 |:----|:----|:----|
 |SacYard Community Tap House|4.522222222222222|90|
@@ -92,6 +94,7 @@ business[business['count'] > 9].sort_values(['review_stars']).iloc[-15:-1,:]
 ```Python
 business.sort_values(['review_stars']).iloc[0:15,:]
 ```
+
 |business_name|review_stars|count|
 |:----|:----|:----|
 |All Angle BBQ|1.1428571428571428|7|
@@ -641,6 +644,7 @@ tfidf_feature_names = tfidf_vectorizer.get_feature_names()
 nmf = NMF(n_components = 50, alpha = 1).fit(tfidf)
 print_top_words(nmf, tfidf_feature_names, 15)
 ```
+
 |Topic|
 |:----|
 |Topic #0: order would get minutes like dont im one didnt line took 10 waiting know back|
@@ -732,6 +736,7 @@ for i,row in service.iterrows():
 service['total'] = service.iloc[:,1:4].sum(axis=1)
 service[service['count'] > 15].sort_values('total',ascending=False)[['business_name','count','total']]
 ```
+
 |business_name|count|total|
 |:------|:------|:------|
 |Chocho’s Tacos Truck|18|0.05103463253691082|
