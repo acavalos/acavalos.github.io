@@ -25,23 +25,9 @@ You can find all the datasets [here](https://github.com/acavalos/yelp_food_truck
 
 Let's see which trucks are the most popular, well-reviewed, and those that are poorly reviewed.
 
-```Python
-import pandas as pd
-import numpy as np
+<script src="https://gist.github.com/acavalos/557f72fc281241fda9b234044f4e84a7.js"></script>
 
-reviews = pd.read_csv('yelp_review_final.csv')
-business = reviews.groupby('business_name').mean().reset_index()
-business['count'] = business.business_name.apply(lambda truck: len(reviews[reviews.business_name == truck]))
-
-print(len(reviews))
->>> 6568
-print(len(business))
->>> 92
-```
 ## Sorted by number of reviews
-```Python
-business.sort_values(['count']).iloc[-15:-1,:]
-```
 
 |business_name|review_stars|count|
 |:------------------------------------|:-------------|:----|
@@ -69,9 +55,6 @@ business.sort_values(['count']).iloc[-15:-1,:]
 
  
 ## Top 15 Reviewed Trucks With At Least 10 Reviews
-```Python
-business[business['count'] > 9].sort_values(['review_stars']).iloc[-15:-1,:]
-``` 
 
 |business_name|review_stars|count|
 |:----|:----|:----|
@@ -91,9 +74,6 @@ business[business['count'] > 9].sort_values(['review_stars']).iloc[-15:-1,:]
 |Frutazo|4.875|16|
 
 ## Bottom 15 Reviewed Trucks
-```Python
-business.sort_values(['review_stars']).iloc[0:15,:]
-```
 
 |business_name|review_stars|count|
 |:----|:----|:----|
@@ -172,49 +152,11 @@ staying consistent since late 2014? Truly impressive stuff.
 Yelp features premium accounts titled "Yelp Elite", awarded to users who use the site heavily. I'd like to see 
 how Elite members review compared to non-Elite members.
 
-```Python
-user = pd.read_csv('yelp_user_final.csv')
-user.user_yelp_age = pd.to_datetime(user_df.user_yelp_age)
-
-len(user)
->> 4736
-
-user.user_elite.value_counts() / len(user)
->>0 0.828336
->>1 0.171664
-```
+<script src="https://gist.github.com/acavalos/50ac15edc61ba1663eab350251555a67.js"></script>
 
 Out of the 4736 users, about 1/5 are Elite members. 
 
-```Python
-#Get the total number of 1-star to 5-star reviews 
-star_dist_non_elite = list(user[user.user_elite == 0].iloc[:,-5:].sum().get_values())
-star_dist_elite = list(user[user.user_elite == 1].iloc[:,-5:].sum().get_values())
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-width = 0.4
-ind = np.array([5,4,3,2,1])
-
-rects1 = ax.bar(
-        x = ind+width/2,
-        height = star_dist_elite,
-        width = width,
-        color = '#8d0005',
-    )
-rects2 = ax.bar(
-        x = ind-width/2,
-        height = star_dist_non_elite,
-        width = width,
-        color = 'black',
-    )
-    
-ax.set_xlabel('Review Stars')
-ax.set_ylabel('count')
-ax.set_title('Total Review')
-ax.legend( (rects1[0], rects2[0]), ('Elite','Non-Elite') )
-plt.show()
-````
+<script src="https://gist.github.com/acavalos/2a7cfb40935ce0e2d5c49cc40fefb680.js"></script>
 <p align="center">
     <img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/elite.png" width="450" />
 </p>
@@ -222,28 +164,7 @@ plt.show()
 Amazingly, Elite members contribute almost twice as many reviews than non-elite members, despite only accounting for 20 percent 
 of the pool of users. 
 
-```Python
-d_elite = list(reversed(star_dist_elite / sum(star_dist_elite)))
-d_non_elite = list(reversed(star_dist_non_elite / sum(star_dist_non_elite)))
-
-#Observed Distribution Of Stars For Non-Elite
-print(d_non_elite)
->>>[0.10974801061007958, 0.08948727354816863, 0.14265759918731305, 0.2675517805745245, 0.3905553360799142]
-
-#Observed Distribution Of Stars For Elite
-print(d_elite)
->>>[0.034992985616027955, 0.07418024993452045, 0.2196094190080836, 0.37693971935288273, 0.2942776260884853]
-
-#Observed Odd of Elite Rating 'i' Stars Compared To Non-Elite
-for i in range(5):
-    print(str(i+1)+' stars: ',d_elite[i]/d_non_elite[i])
-    
->>>1 stars:  0.3188484731659828
->>>2 stars:  0.8289474803877134
->>>3 stars:  1.5394161983598984
->>>4 stars:  1.4088477323659188
->>>5 stars:  0.75348509904438
-```
+<script src="https://gist.github.com/acavalos/0cffd6b19c02716a0cf918bd558eb72b.js"></script>
 
 We see Elite members are 40-50% more likely to give 3 or 4 star reviews. Moreover, 
 they are a lot less like to give a 1 star review.
@@ -251,31 +172,8 @@ they are a lot less like to give a 1 star review.
 Elite membership aside, there may be a correlations between review average, user friend count, user review count, and user review vote counts.
 For this, we can make a simple heatmap.
 
-```Python
-user['review_average'] = 1*user.user_1star+2*user.user_2star+3*user.user_3star+4*user.user_4star+5*user.user_5star
-user['review_average'] /= user.user_1star+user.user_2star+user.user_3star+user.user_4star+user.user_5star
+<script src="https://gist.github.com/acavalos/c00df4233b19c1e20142bb0dc0c63994.js"></script>
 
-labels = ['user_friend_count','user_review_count','user_review_votes','review_average']
-corr_matrix = user[labels].corr()
-fig,ax = plt.subplots()
-im = ax.imshow(user[labels].corr())
-ax.set_xticks(np.arange(len(labels)))
-ax.set_yticks(np.arange(len(labels)))
-ax.set_xticklabels(labels)
-ax.set_yticklabels(labels)
-
-plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-         rotation_mode="anchor")
-         
-for i in range(len(labels)):
-    for j in range(len(labels)):
-        text = ax.text(j, i, round(corr_matrix.iloc[i, j],2), 
-                        ha="center", va="center", color="w")
-            
-ax.set_title("Correlation Matrix")
-fig.tight_layout()                     
-plt.show()
-```
 <p align="center">
     <img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/heat.png" width="450" />
 </p>
@@ -289,56 +187,12 @@ is likely to review in general.
 Next, we will mine the review content to find key words correlated to the users review score.
 First, we need to transform the text to something easier to work with.
 
-```Python
-#Using the nltk package for word processing
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-
-#For removing common useless words and punctuation
-def contentClean(content):
-    out = content.replace('<br>',' ')
-    out = out.replace('</br>',' ').lower()
-    
-    for p in ['?','.',',','!',':',';','-','/']:
-        out = out.replace(p, ' ')
-    
-    out = out.split()
-    table = str.maketrans('', '', string.punctuation)
-    out = [w.translate(table) for w in out]
-    
-    out = [w for w in out if w not in stop]
-    return(lemmatizer.lemmatize(' '.join(out)))
-    
-reviews.review_content = reviews.review_content.apply(lambda x: contentClean(x))
-
-#FOR READING IN AT LATER TIME
-#reviews.review_content.to_csv('review_content_cleaned.csv',index=None)
-#reviews.review_content = pd.read_csv('review_content_cleaned.csv',header=None)
-'''
-
-freq = pd.Series(' '.join(reviews.review_content).split()).value_counts()
-freq.value_counts().sort_index()[:5] #Check how many words are rare.
-
->>>1    5017
->>>2    2221
->>>3    1073
->>>4     742
->>>5     525
-```
+<script src="https://gist.github.com/acavalos/c5dd9ee5705cb7506740ea11847bfb93.js"></script>
 
 We see 5017 words appear only once. We will go ahead and remove those as well.
 
-```Python
-freq = freq.reset_index()
-freq.columns = ['word','count']
-keep = list(freq[freq['count'] > 1].word)
+<script src="https://gist.github.com/acavalos/9dfa60cae6b826a3d25f8c4808560449.js"></script>
 
-def deleteOne(content):
-    out = content.split()
-    return(' '.join([w for w in out if w in keep]))
-    
-reviews.review_content = reviews.review_content.apply(lambda x: deleteOne(x))
-```
 Deleting rare words took a hot minute compute, so I am positive there is a faster solution to this.
 
 The next step is to perform Sentiment Analysis. For this we can utilize the 'sklearn' package. 
@@ -348,82 +202,7 @@ words with a good or bad review. Remember, like Linear Regression, the
 magnitude of coefficients imply larger effects the word has on the review outcome. For this reason, 
 we will sort the coefficients and review the greatest and least values.
 
-```Python
-from sklearn.feature_extraction.text import CountVectorizer
-
-'''
-CountVectorizer
-We had D documents and W unique words in all of D documents.
-CountVectorizer creates a DxW matrix counting occurances of the j'th word in i'th document.
-
-      word_1 word_2 . . . word_W
-      ----------------------------
-doc_1: c_11  c_12   . . . c_1W 
-doc_2: c_21  c_22   . . . c_2W
-  .      .            .    .
-  .      .              .  .
-doc_D:  c_D1   .    . . . c_DW
-
-Useful for topic modeling and logistic regression
-'''
-
-vectorizer = CountVectorizer(
-    analyzer = 'word',
-    lowercase = False
-)
-
-features_count = vectorizer.fit_transform(
-    reviews.review_content
-)
-
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-
-#Dictionary maps 1-2 stars as 'bad'
-#3-5 as 'goog'
-neg_or_pos = { 1:-1,2:-1,3:1,4:1,5:1}
-altered_stars = reviews.review_stars.apply(lambda x: neg_or_pos[x])
-
-#Find model parameters with best accuracy
-for c in np.linspace(0.01,1,10):
-    log_model = LogisticRegression(C = c)
-    fit = log_model.fit(X = features_count.toarray(),
-                        y = altered_stars
-                    )
-    y_pred = log_model.predict(features_count.toarray())
-    print(fit)
-    print(accuracy_score(y_pred,altered_stars),'\n')
-
-#Best C = 1
-log_model = LogisticRegression(C=1)
-fit = log_model.fit( X=features_count.toarray(),y=altered_stars)
-
-#Make dictionary to tie words to coefficients.
-#Large coefficients for i'th row correlate to words impact on 
-#user giving review an i'th star.
-
-feature_to_coef = dict(zip(vectorizer.get_feature_names(),log_model.coef_[0]))
-
-
-def targetEffects(top = 15 ):
-    #Prints largest coefficients per star level
-    return(
-        list(sorted(
-            feature_to_coef.items(), 
-            key=lambda x: round(x[1],2), 
-            reverse=True
-        ))[:top],
-        list(sorted(
-            feature_to_coef.items(), 
-            key=lambda x: round(x[1],2), 
-            reverse=False
-        ))[:top]
-    )
-    
-worst,best = targetEffects(30)
-for i in range(30):
-    print(worst[i],best[i])
-```
+<script src="https://gist.github.com/acavalos/9ce979da9a887c5b7ed691b7e890b277.js"></script>
 
 
 |worst|best|
@@ -470,34 +249,7 @@ The common techniques used for Topic Modeling are Non-Negative Matrix Factorizat
 I will choose to use NMF. I've tried LDA and found NMF provided better topics. I also removed Chando's reviews from 
 the input as they affect the topics too much.
 
-```Python
-'''
-NMF
-
-INPUT: Term-Document matrix. 
-OUTPUT: Set of topics representing weighted sets of co-occuring terms
-'''
-from sklearn.decomposition import NMF
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-def print_top_words(model, feature_names, n_top_words):
-    for topic_idx, topic in enumerate(model.components_):
-        message = "Topic #%d: " % topic_idx
-        message += " ".join([feature_names[i]
-                             for i in topic.argsort()[:-n_top_words - 1:-1]])
-        print(message)
-    print()
-    
-tfidf_vectorizer = TfidfVectorizer(
-    max_df=0.95, min_df=2
-)
-chandos = "Chando’s Tacos"
-tfidf = tfidf_vectorizer.fit_transform(reviews[reviews.business_name!= chandos].review_content)
-tfidf_feature_names = tfidf_vectorizer.get_feature_names()
-
-nmf = NMF(n_components = 50, alpha = 1).fit(tfidf)
-print_top_words(nmf, tfidf_feature_names, 15)
-```
+<script src="https://gist.github.com/acavalos/db2650ec378c57ce093915ab34314a50.js"></script>
 
 |Topic|
 |:----|
@@ -565,31 +317,7 @@ Each truck is scored as follows:
 3. Add or subtract this sum to the trucks total score.
 4. Finally, divide this statistics by number of reviews for truck.
 
-```Python
-from datetime import datetime as dt
-reviews.review_date = pd.to_datetime(reviews.review_date)
-service = pd.DataFrame(reviews[reviews.review_date>=dt(2017,1,1)].business_name.unique(),columns = ['business_name'])
-
-for topic in [18,21,31,40]:
-    service[topic] = 0
-    
-service['count'] = None
-#Create dataframe with columns identifying positive or negative strength of association to topic
-for i,row in service.iterrows():
-    content = reviews[(reviews.business_name == row.business_name)]
-    content = content[content.review_date >= dt(2017,1,1)]
-    for j,row2 in content.iterrows():
-        transformed = tfidf_vectorizer.transform(
-                        [row2.review_content,'']
-                        )
-        projected = nmf.transform(transformed).sum(axis=0)
-        for topic in [18,21,31,40]:
-            service.loc[i,topic] += neg_or_pos[row2.review_stars]*projected[topic]/len(content)
-    service.loc[i,'count'] = len(content)
-    
-service['total'] = service.iloc[:,1:4].sum(axis=1)
-service[service['count'] > 15].sort_values('total',ascending=False)[['business_name','count','total']]
-```
+<script src="https://gist.github.com/acavalos/c22d57c640f75224b3bbae026d55aaf4.js"></script>
 
 |business_name|count|total|
 |:------|:------|:------|
