@@ -3,7 +3,7 @@ published: true
 ---
 Over the past decade, the food truck industry had a big bang type expansion. Despite battling different regulations and 
 ordinances throughout California, truck owners have proven the viability of taking food service from brick-and-mortar to 
-the streets. In the Sacramento area, a large handful of trucks emerged to become local favorite such as Chando's Taco's. 
+the streets. In the Sacramento area, a handful of trucks emerged to become local favorite such as Chando's Taco's. 
 In this post I will take a brief look at the yelp performance of all trucks and explore potential attributes that significantly 
 affects how users review mobile vendors. 
 
