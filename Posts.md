@@ -5,6 +5,6 @@ published: True
 ---
 
 {% for post in site.posts %}
-[post.title | textilize]({{ post.url }})
+[{{post.title}}]({{ post.url }})
 {{ post.date | date_to_string }}
 {% endfor %}
