@@ -1,7 +1,6 @@
 ---
 published: true
 ---
-
 Back in December, I was involved in an auto accident that left my Chevy Sonic totaled. After 
 the other party was found at fault, I was paid out. I figured, hey, this is the perfect time 
 for another blog post! Today, we will be doing some Non-Linear Regression.
@@ -68,6 +67,47 @@ There is a clear indication of an inverse relationship. We will fit the followin
 
 <p align="center">
 $$
-\price_i = e^(a+b*odo_i) + \sigma_i
+price_i = e^{a+b*odo_i} + \sigma_i
 $$    
 </p>
+
+We'll see the most popular models and keep the top sedans. Moreover, we will change the units 
+such that 1 = $1000, and 1 = 1000 miles.
+```R
+auto$full_title <- mapply(function(x,y) paste(x,y),auto$make,auto$model)
+sort(table(auto$full_title))
+
+
+keep = c("Honda Civic","Honda Accord","Toyota Camry","Nissan Altima",
+        "Ford Focus","Ford Fusion","Chevrolet Impala","Toyota Corolla",
+        "Hyundai Sonata","Chevrolet Cruze","Hyundai Elantra","Toyota Prius",
+        "Nissan Sentra","Volkswagen Jetta","Subaru Impreza",
+        "Ford Fiesta","Nissan Maxima")
+
+auto <- auto[auto$full_title %in% keep,]
+auto$price = auto$price/1000
+auto$odometer = auto$odometer/1000
+```
+
+Perfect, we have all the data we want. The next part is creating the models.
+Since we are working with NLS and not Linear Regression, we need to use the nls() 
+function. Unfortunately, to achieve the end goal of providing prediction and confidence intervals, 
+we need to create them ourselves! For whatever reason, nls() does not return these intervals. To 
+make these intervals, we need to understand how nls works. 
+
+In Calc 1, we learned the derivative. The derivate indicates the SLOPE of the best fit LINE to the curve. 
+Here, we will be doing something equivalent. If we theorize the data to adhere to some 
+non-linear function, we can linearize the model at each observation! At least, that's how I'm 
+convinced it works. Regardless, let's get to it.
+
+$$
+
+$$
+
+
+I will create a function which takes the input and response variables, and returns 
+a list object containing the fit and the prediction/confidence intervals.
+
+
+
+
