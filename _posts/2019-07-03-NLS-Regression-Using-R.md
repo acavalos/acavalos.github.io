@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 
 Back in December, I was involved in an auto accident that left my Chevy Sonic totaled. After 
