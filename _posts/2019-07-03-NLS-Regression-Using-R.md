@@ -257,7 +257,7 @@ model fitting with the cleaned data. Normally outlier removal must be done with 
 are so significant and numerous, it is justified in this case. 
 
 <p align = "center">
-	<img = src = "https://github.com/acavalos/acavalos.github.io/blob/master/images/auto/outlier.png?raw=true" alt="Example" width="400" />
+	<img src ="https://github.com/acavalos/acavalos.github.io/blob/master/images/auto/outlier.png" alt="Example" width="400" />
 </p>
 
 ```R 
