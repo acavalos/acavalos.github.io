@@ -107,10 +107,10 @@ y_i = f(x_i|\beta) + e_i
 $$    
 </p>
 
-Given our model $f$ with estimated parameters $\hat{\beta}$, we can use the Delta-Method for prediction
+Given our model $$f$$ with estimated parameters $$\hat{\beta}$$, we can use the Delta-Method for prediction
 and confidence.
 
-From Calculus, we have that we can linearize $f$ at any observation $x_0$
+From calculus, we have that we can linearize $$f$$ at any observation $$x_0$$
 <p align="center">
 $$
 f(x_0,\beta) \simeq f(x_0|\hat{\beta}) + \nabla f(x_0,\hat{\beta})(\beta - \hat{\beta})
@@ -136,12 +136,12 @@ Our 95% CI and PI becomes
 $$
 CI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha,2}, df=n-d} s.e.(f(x_0|\hat{\beta})),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha,2}, df=n-d} s.e.(f(x_0|\hat{\beta}))]
 $$
-where $s.e.(f(x_0|\hat{\beta})) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta})}$,
+where $$s.e.(f(x_0|\hat{\beta})) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta})}$$,
 
 $$
 PI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha,2}, df=n-d} s.e.(\hat{y_0}),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha,2}, df=n-d} s.e.(\hat{y_0})]
 $$
-where $s.e.(\hat{y_0}) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta}) + \sigma ^ 2}$ and $\sigma ^ 2 = Var(\hat{e_i})$
+where $$s.e.(\hat{y_0}) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta}) + \sigma ^ 2}$$ and $$\sigma ^ 2 = Var(\hat{e_i})$$
 </p>
 
 I will create a function which takes the input and response variables, and returns 
