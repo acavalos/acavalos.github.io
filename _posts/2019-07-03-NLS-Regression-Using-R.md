@@ -54,10 +54,10 @@ postings outside of my interests.
 
 ```R
 auto$price = as.numeric(gsub("[^0-9\\.]", "", auto$price)) 
-auto <- auto[auto$odometer<100000,]
-auto <- auto[auto$price<50000,]
 auto <- auto[!(is.null(auto$odometer)) & !(is.na(auto$odometer)),]
 auto <- auto[!(is.null(auto$price)) & !(is.na(auto$price)),]
+auto <- auto[auto$odometer<100000,]
+auto <- auto[auto$price<50000,]
 auto <- auto[auto$title_status == "clean",]
 
 plot(auto$odometer,auto$price)
@@ -78,11 +78,11 @@ auto$full_title <- mapply(function(x,y) paste(x,y),auto$make,auto$model)
 sort(table(auto$full_title))
 
 
-keep = c("Honda Civic","Honda Accord","Toyota Camry","Nissan Altima",
-        "Ford Focus","Ford Fusion","Chevrolet Impala","Toyota Corolla",
-        "Hyundai Sonata","Chevrolet Cruze","Hyundai Elantra","Toyota Prius",
-        "Nissan Sentra","Volkswagen Jetta","Subaru Impreza",
-        "Ford Fiesta","Nissan Maxima")
+keep = c("honda civic","honda accord","toyota camry","nissan altima",
+        "ford focus","ford fusion","chevrolet impala","toyota corolla",
+        "hyundai sonata","chevrolet cruze","hyundai elantra","toyota prius",
+        "nissan sentra","volkswagen jetta","subaru impreza",
+        "ford fiesta","nissan maxima")
 
 auto <- auto[auto$full_title %in% keep,]
 auto$price = auto$price/1000
@@ -96,7 +96,7 @@ we need to create them ourselves! For whatever reason, nls() does not return the
 make these intervals, we need to be a little crafty. In fake code, the nls() function will work as follows:
 
 ```R
-#NLS takes starting parameter B_0 
+#NLS takes starting parameter *vector* B_0 
 #and either converges or diverges onto the best model
 #given general function f(x|B)
 fit = nls(formula = y ~ f(x|B), start = list(B = B_0))
@@ -145,6 +145,8 @@ $$
 </p>
 where $$s.e.(f(x_0|\hat{\beta})) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta})}$$,
 
+
+
 <p align="center">
 $$
 PI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha}{2}, df=n-d} s.e.(\hat{y_0}),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha}{2}, df=n-d} s.e.(\hat{y_0})]
@@ -153,11 +155,15 @@ $$
 where $$s.e.(\hat{y_0}) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta}) + \sigma ^ 2}$$ and $$\sigma ^ 2 = Var(\hat{e_i})$$
 
 
+
 I will create a function which takes the input and response variables, and returns 
-a list object containing the fit and the prediction/confidence intervals using the above theory.
+a list object containing the fit and the prediction/confidence intervals using the above theory. 
+Moreover, my list will contain the confidence/prediction plots of the data for easy visualization.
+I will use the ggplot2 library, since I feel it is a good mix of ease and cleanliness.
 
 ```R
 library(stats)
+library(ggplot2)
 
 create_model <- function(input,resp,name) {
     fit <- nls(resp~exp(a+b*input),start = list(a=log(20),b=-0.001))
@@ -222,4 +228,56 @@ create_model <- function(input,resp,name) {
     
     return(list(fit = fit,B.conf = B.ci, pred = df.delta,df = input.df,plot = p))
 }
+```
+
+I opt to use a for-loop since the apply functions aren't necessary and less readable.
+
+```R 
+model_list <- list()
+for(name in unique(auto$full_title)){
+    df.temp <- auto[auto$full_title == name,]
+    model_list[[name]] <- create_model(df.temp$odometer,df.temp$price,name)
+    rm(df.temp)
+}
+
+#DataFrame for parameters for ease 
+param.df <- data.frame(full_title = unique(auto$full_title))
+param.df$a.lwr = sapply(model_list, function(x) t(x$B.conf["a",1]))
+param.df$a.upr = sapply(model_list, function(x) t(x$B.conf["a",2]))
+param.df$b.lwr = sapply(model_list, function(x) t(x$B.conf["b",1]))
+param.df$b.upr = sapply(model_list, function(x) t(x$B.conf["b",2]))
+```
+
+## Dealing With The Outliers
+
+Sifting through our model plots, it's easy to see there are certain samples that are affecting our 
+model fits. This can be validated by reviewing the Cook's distance of the samples. For our purposes, we 
+are going to be controversial and remove any sample outside our confidence intervals. We then will re-run our 
+model fitting with the cleaned data. Normally outlier removal must be done with caution, but because these outliers 
+are so significant and numerous, it is justified in this case. 
+
+<p align = "center">
+	<img = src = "https://github.com/acavalos/acavalos.github.io/blob/master/images/auto/outlier.png?raw=true" alt="Example" width="400" />
+</p>
+
+```R 
+auto.clean = merge(auto,param.df,by="full_title")
+logic.lwr = auto.clean$price > exp(auto.clean$a.lwr+auto.clean$b.lwr*auto.clean$odometer)
+logic.upr = auto.clean$price < exp(auto.clean$a.upr+auto.clean$b.upr*auto.clean$odometer)
+auto.clean = auto.clean[logic.lwr & logic.upr,]
+
+model_list <- list()
+for(name in unique(auto.clean$full_title)){
+    df.temp <- auto.clean[auto.clean$full_title == name,]
+    model_list[[name]] <- create_model(df.temp$odometer,df.temp$price,name)
+    rm(df.temp)
+}
+
+param.df <- data.frame(full_title = unique(auto.clean$full_title))
+param.df$a <- sapply(model_list,function(x) summary(x$fit)$coefficients["a",1])
+param.df$a.lwr = sapply(model_list, function(x) t(x$B.conf["a",1]))
+param.df$a.upr = sapply(model_list, function(x) t(x$B.conf["a",2]))
+param.df$b <- sapply(model_list,function(x) summary(x$fit)$coefficients["b",1])
+param.df$b.lwr = sapply(model_list, function(x) t(x$B.conf["b",1]))
+param.df$b.upr = sapply(model_list, function(x) t(x$B.conf["b",2]))
 ```
