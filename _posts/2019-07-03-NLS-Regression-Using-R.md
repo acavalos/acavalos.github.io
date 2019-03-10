@@ -302,10 +302,10 @@ algebra, we see the percetage of degradation D per 1k miles as:
 <p align = "center">
 $$
 \begin{align*}
-D(x) &= \frac{e^a - e^(a+b \cdot x)}{e^a}
-	 &= \frac{e^a - e^(a) \cdot e^(b \cdot x)}{e^a}
-	 &= e^a \cdot (1 - e^(b \cdot x))
+D(x) &= \frac{e^a - e^(a+b \cdot x)}{e^a}\\
+	 &= \frac{e^a - e^(a) \cdot e^(b \cdot x)}{e^a}\\
+	 &= e^a \cdot (1 - e^(b \cdot x))\\
 	 &= 1 - e^(b \cdot x)
-\end{align}
+\end{align*}
 $$
 </p>
