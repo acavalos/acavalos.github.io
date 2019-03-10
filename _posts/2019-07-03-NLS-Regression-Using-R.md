@@ -98,7 +98,7 @@ make these intervals, we need to be a little crafty. In fake code, the nls() fun
 ```R
 #NLS takes starting parameter B_0 
 #and either converges or diverges onto the best model
-$given the function 
+#given general function f(x|B)
 fit = nls(formula = y ~ f(x|B), start = list(B = B_0))
 ```
 
@@ -140,15 +140,18 @@ Our 95% CI and PI becomes
 
 <p align="center">
 $$
-CI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha,2}, df=n-d} s.e.(f(x_0|\hat{\beta})),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha,2}, df=n-d} s.e.(f(x_0|\hat{\beta}))]
+CI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha}{2}, df=n-d} s.e.(f(x_0|\hat{\beta})),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha}{2}, df=n-d} s.e.(f(x_0|\hat{\beta}))]
 $$
+</p>
 where $$s.e.(f(x_0|\hat{\beta})) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta})}$$,
 
+<p align="center">
 $$
-PI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha,2}, df=n-d} s.e.(\hat{y_0}),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha,2}, df=n-d} s.e.(\hat{y_0})]
+PI_{lin,1-\alpha}(f(x_0|\beta)) = [f(x_0|\hat{\beta}) + qt_{\frac{\alpha}{2}, df=n-d} s.e.(\hat{y_0}),f(x_0|\hat{\beta}) + qt_{1 - \frac{\alpha}{2}, df=n-d} s.e.(\hat{y_0})]
 $$
-where $$s.e.(\hat{y_0}) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta}) + \sigma ^ 2}$$ and $$\sigma ^ 2 = Var(\hat{e_i})$$
 </p>
+where $$s.e.(\hat{y_0}) = \sqrt{\nabla f(x_0|\hat{\beta})^T \cdot Cov(\beta) \cdot \nabla f(x_0|\hat{\beta}) + \sigma ^ 2}$$ and $$\sigma ^ 2 = Var(\hat{e_i})$$
+
 
 I will create a function which takes the input and response variables, and returns 
 a list object containing the fit and the prediction/confidence intervals using the above theory.
