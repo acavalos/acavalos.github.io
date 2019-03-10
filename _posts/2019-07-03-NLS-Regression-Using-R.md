@@ -281,3 +281,10 @@ param.df$b <- sapply(model_list,function(x) summary(x$fit)$coefficients["b",1])
 param.df$b.lwr = sapply(model_list, function(x) t(x$B.conf["b",1]))
 param.df$b.upr = sapply(model_list, function(x) t(x$B.conf["b",2]))
 ```
+
+For comparison with the previous image used, here is the new model with the outliers removed:
+<p align = "center">
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/ford%20fiesta.jpg" alt="cleaned" width="400" />
+</p>
+
+The rest of the plots can be found [here](https://github.com/acavalos/acavalos.github.io/tree/master/images/auto)
