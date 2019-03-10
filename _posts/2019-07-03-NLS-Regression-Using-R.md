@@ -288,3 +288,24 @@ For comparison with the previous image used, here is the new model with the outl
 </p>
 
 The rest of the plots can be found [here](https://github.com/acavalos/acavalos.github.io/tree/master/images/auto)
+
+# Finding Best Value Via Eye Test
+
+Not every analysis needs to be overdone. Certain things we can rely on our instincts. In basketball, 
+this is commonly referred to as the eye test. Although, in basketball, the eye test is also useful 
+for identifying players abusing their statsheet to falsify their value!
+
+The most important feature according to our model is the decay rate. We want to find a vehicle within our means 
+that will hold consistent value. What is the point of buying a cheap vehicle if it degrades quickly? Using some simple 
+algebra, we see the percetage of degradation D per 1k miles as:
+
+<p align = "center">
+$$
+\begin{align*}
+D(x) &= \frac{e^a - e^(a+b \cdot x)}{e^a}
+	 &= \frac{e^a - e^(a) \cdot e^(b \cdot x)}{e^a}
+	 &= e^a \cdot (1 - e^(b \cdot x))
+	 &= 1 - e^(b \cdot x)
+\end{align}
+$$
+</p>]
