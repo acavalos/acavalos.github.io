@@ -1,12 +1,12 @@
 ---
 published: true
 ---
-Back in December, I was involved in an auto accident that left my Chevy Sonic totaled. After 
+Back in December, I was involved in an auto accident that left my 2016 Chevrolet Sonic totaled. After 
 the other party was found at fault, I was paid out. I figured, hey, this is the perfect time 
-for another blog post! Today, we will be doing some Non-Linear Regression.
+for another blog post! Today, we will be doing some Non-Linear Regression in R.
 
-Just like my last post, I've web-scraped car listings on Craigslist. Instead of looking 
-at age vs price, we are going to investigate odometer vs price. We will popular sedan models 
+Similar to my last post, I've web-scraped car listings on Craigslist. Instead of looking 
+at age vs price, we are going to investigate odometer vs price. We will review the most popular sedans 
 and see which vehicle has a low initial cost, and a slow decay rate in value. 
 
 # Shaping The Data
@@ -93,12 +93,18 @@ Perfect, we have all the data we want. The next part is creating the models.
 Since we are working with NLS and not Linear Regression, we need to use the nls() 
 function. Unfortunately, to achieve the end goal of providing prediction and confidence intervals, 
 we need to create them ourselves! For whatever reason, nls() does not return these intervals. To 
-make these intervals, we need to understand how nls works. 
+make these intervals, we need to be a little crafty. In fake code, the nls() function will work as follows:
 
-In Calc 1, we learned the derivative. The derivate indicates the SLOPE of the best fit LINE to the curve. 
+```R
+#NLS takes starting parameter B_0 
+#and either converges or diverges onto the best model
+$given the function 
+fit = nls(formula = y ~ f(x|B), start = list(B = B_0))
+```
+
+In basic calculus, we learned the derivative. The derivative indicates the SLOPE of the best fit LINE to the curve. 
 Here, we will be doing something equivalent. If we theorize the data to adhere to some 
-non-linear function, we can linearize the model at each observation! At least, that's how I'm 
-convinced it works. Regardless, let's get to it.
+non-linear function, we can linearize the model at each observation! 
 
 Our Model:
 <p align="center">
