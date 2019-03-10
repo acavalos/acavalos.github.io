@@ -308,4 +308,4 @@ D(x) &= \frac{e^a - e^(a+b \cdot x)}{e^a}
 	 &= 1 - e^(b \cdot x)
 \end{align}
 $$
-</p>]
+</p>
