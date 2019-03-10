@@ -117,7 +117,7 @@ f(x_0,\beta) \simeq f(x_0|\hat{\beta}) + \nabla f(x_0,\hat{\beta})(\beta - \hat{
 $$    
 </p>
 
-Then we can approximate $Var(f(x_0,\hat{\beta}))$:
+Then we can approximate $$Var(f(x_0,\hat{\beta}))$$:
 <p align="center">
 $$
 \begin{align*}
