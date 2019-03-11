@@ -352,5 +352,5 @@ p2 <- ggplot(param.df, aes(y=b,x=full_title)) +
 grid.arrange(p1,p2,nrow=1)
 ```
 <p align = "center">
-	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/bands.png" alt="Ranked Initial Cost" width="600" />
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/bands.png" alt="Ranked Initial Cost" width="800" />
 </p>
