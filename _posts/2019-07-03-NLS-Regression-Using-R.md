@@ -297,7 +297,7 @@ for identifying players abusing their statsheet to falsify their value!
 
 The most important feature according to our model is the decay rate. We want to find a vehicle within our means 
 that will hold consistent value. What is the point of buying a cheap vehicle if it degrades quickly? Using some simple 
-algebra, we see the percetage of degradation D per 1k miles as:
+algebra, we see the percetage of degradation $$D(x) = \frac{f(0)-f(x)}{f(0)}$$ per x*1k miles as:
 
 <p align = "center">
 $$
@@ -309,3 +309,16 @@ D(x) &= \frac{e^a - e^{a+b \cdot x}}{e^a}\\
 \end{align*}
 $$
 </p>
+
+```R
+twenty_odo_decay = data.frame(full_title = param.df$full_title,decay = 1 - exp(param.df$b*20))
+twenty_odo_decay$full_title <- factor(twenty_odo_decay$full_title, 
+                                levels = twenty_odo_decay$full_title[rev(order(twenty_odo_decay$decay))])
+ggplot(decay.df,aes(x=odometer,y=price,col=full_title))+geom_line()+ggtitle("Percentage Loss Per 1k Odo")
+```
+
+<p align = "center">
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay.png" alt="Ranked Decay" width="400" />
+</p>
+
+Briefly, we see Toyota makes reliable cars, as a slow decay rate infers less maintanence and repairs.
