@@ -307,7 +307,7 @@ $$
 \begin{align*}
 D(x) &= \frac{e^a - e^{a+b \cdot x}}{e^a}\\
 	 &= \frac{e^a - e^{a} \cdot e^{b \cdot x}}{e^a}\\
-	 &= e^a \cdot (1 - e^{b \cdot x})\\
+	 &= \frac{e^a \cdot (1 - e^{b \cdot x})}{e^a}\\
 	 &= 1 - e^{b \cdot x}
 \end{align*}
 $$
