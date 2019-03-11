@@ -62,6 +62,9 @@ auto <- auto[auto$title_status == "clean",]
 
 plot(auto$odometer,auto$price)
 ```
+<p align = "center">
+	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/initial.png" alt="odo_price" width="400" />
+</p>
 
 There is a clear indication of an inverse relationship. We will fit the following model:
 
@@ -318,7 +321,28 @@ ggplot(decay.df,aes(x=odometer,y=price,col=full_title))+geom_line()+ggtitle("Per
 ```
 
 <p align = "center">
-	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay.png" alt="Ranked Decay" width="400" />
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay.png" alt="Ranked Decay" width="600" />
 </p>
 
 Briefly, we see Toyota makes reliable cars, as a slow decay rate infers less maintanence and repairs.
+
+To summarize, we can plot the confidence bands of each models inital cost and decay rate. I will sort by the 
+initial cost to make it easier for the eye test.
+
+```R
+#Force ggplot to order correctly
+param.df$full_title <- factor(param.df$full_title, 
+                                levels = param.df$full_title[rev(order(param.df$a))])
+
+p1 <- ggplot(param.df, aes(y=exp(a),x=full_title)) + 
+                geom_errorbar(aes(ymin=exp(a.lwr),ymax=exp(a.upr))) + 
+                geom_point() + ylab("Initial Cost") + xlab("Full Title") + coord_flip()
+
+p2 <- ggplot(param.df, aes(y=b,x=full_title)) + 
+                geom_errorbar(aes(ymin=b.lwr,ymax=b.upr)) + 
+                geom_point() + ylab("Decay Rate") + xlab(NULL) + coord_flip()
+grid.arrange(p1,p2,nrow=1)
+```
+<p align = "center">
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/bands.png" alt="Ranked Initial Cost" width="600" />
+</p>
