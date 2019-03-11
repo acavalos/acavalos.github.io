@@ -314,10 +314,18 @@ $$
 </p>
 
 ```R
-twenty_odo_decay = data.frame(full_title = param.df$full_title,decay = 1 - exp(param.df$b*20))
-twenty_odo_decay$full_title <- factor(twenty_odo_decay$full_title, 
-                                levels = twenty_odo_decay$full_title[rev(order(twenty_odo_decay$decay))])
-ggplot(decay.df,aes(x=odometer,y=price,col=full_title))+geom_line()+ggtitle("Percentage Loss Per 1k Odo")
+loss <- function(decay) {
+	return(1 - exp(decay*seq(0,100,1)))
+}
+decay.df = data.frame(full_title = as.character(),odometer = as.numeric(),price = as.numeric())
+for(name in param.df$full_title){
+	x = seq(0,100,1)
+	temp.df = data.frame(full_title = rep(name,length(x)),
+							odometer=x,
+							price = loss(param.df[param.df$full_title==name,]$b))
+	decay.df <- rbind(decay.df,temp.df)
+	rm(temp.df)
+}
 ```
 
 <p align = "center">
