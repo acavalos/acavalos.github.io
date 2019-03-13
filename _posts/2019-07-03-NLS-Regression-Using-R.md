@@ -63,7 +63,7 @@ auto <- auto[auto$title_status == "clean",]
 plot(auto$odometer,auto$price)
 ```
 <p align = "center">
-	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/initial.png" alt="odo_price" width="400" />
+	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/initial.png" width="600" />
 </p>
 
 There is a clear indication of an inverse relationship. We will fit the following model:
@@ -251,7 +251,7 @@ param.df$b.lwr = sapply(model_list, function(x) t(x$B.conf["b",1]))
 param.df$b.upr = sapply(model_list, function(x) t(x$B.conf["b",2]))
 ```
 
-## Dealing With The Outliers
+### Dealing With The Outliers
 
 Sifting through our model plots, it's easy to see there are certain samples that are affecting our 
 model fits. This can be validated by reviewing the Cook's distance of the samples. For our purposes, we 
@@ -292,13 +292,9 @@ For comparison with the previous image used, here is the new model with the outl
 
 The rest of the plots can be found [here](https://github.com/acavalos/acavalos.github.io/tree/master/images/auto)
 
-# Finding Best Value Via Eye Test
+### Finding Best Value Vehicle
 
-Not every analysis needs to be overdone. Certain things we can rely on our instincts. In basketball, 
-this is commonly referred to as the eye test. Although, in basketball, the eye test is also useful 
-for identifying players abusing their statsheet to falsify their value!
-
-The most important feature according to our model is the decay rate. We want to find a vehicle within our means 
+The most important feature according to our model is the decay rate. We want to find the best vehicle within our means 
 that will hold consistent value. What is the point of buying a cheap vehicle if it degrades quickly? Using some simple 
 algebra, we see the percetage of degradation $$D(x) = \frac{f(0)-f(x)}{f(0)}$$ per x*1k miles as:
 
