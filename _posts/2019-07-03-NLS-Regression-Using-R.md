@@ -72,6 +72,7 @@ $$
 
 We'll see the most popular models and keep the top sedans. Moreover, we will change the units 
 such that 1 = $1000, and 1 = 1000 miles.
+
 ```R
 auto$full_title <- mapply(function(x,y) paste(x,y),auto$make,auto$model)
 sort(table(auto$full_title))
@@ -89,10 +90,10 @@ auto$odometer = auto$odometer/1000
 ```
 
 Perfect, we have all the data we want. The next part is creating the models.
-Since we are working with NLS and not Linear Regression, we need to use the nls() 
+Since we are working with Non-Linear Regression, we need to use the nls() 
 function. Unfortunately, to achieve the end goal of providing prediction and confidence intervals, 
 we need to create them ourselves! For whatever reason, nls() does not return these intervals. To 
-make these intervals, we need to be a little crafty. In fake code, the nls() function will work as follows:
+make these intervals, we need to review the theory and build them manually. In fake code, the nls() function will work as follows:
 
 ```R
 #NLS takes starting parameter *vector* B_0 
@@ -115,7 +116,7 @@ $$
 Given our model $$f$$ with estimated parameters $$\hat{\beta}$$, we can use the Delta-Method for prediction
 and confidence.
 
-From calculus, we have that we can linearize $$f$$ at any observation $$x_0$$
+From calculus, we have that we can linearize $$f$$, as a function of $$\beta$$ at any observation $$x_0$$
 <p align="center">
 $$
 f(x_0,\beta) \simeq f(x_0|\hat{\beta}) + \nabla f(x_0,\hat{\beta})(\beta - \hat{\beta})
@@ -235,7 +236,8 @@ I opt to use a for-loop since the apply functions aren't necessary and less read
 model_list <- list()
 for(name in unique(auto$full_title)){
     df.temp <- auto[auto$full_title == name,]
-    model_list[[name]] <- create_model(df.temp$odometer,df.temp$price,name)
+    model_list[[name]] <- create_model(df.temp$odometer,
+    					df.temp$price,name)
     rm(df.temp)
 }
 
@@ -286,6 +288,7 @@ For comparison with the previous image used, here is the new model with the outl
 	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/ford_fiesta2.png" alt="cleaned" width="600" height = "337.5"/>
 </p>
 
+
 The rest of the plots can be found [here](https://github.com/acavalos/acavalos.github.io/tree/master/images/auto)
 
 ### Finding Best Value Vehicle
@@ -324,9 +327,7 @@ for(name in param.df$full_title){
 	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay2.png" alt="Ranked Decay" width="600" />
 </p>
 
-Briefly, we see Toyota makes reliable cars, as a slow decay rate infers less maintanence and repairs.
-
-To summarize, we can plot the confidence bands of each models inital cost and decay rate. I will sort by the 
+To summarize the information, we can plot the confidence bands of each models inital cost and decay rate. I will sort by the 
 initial cost to make it easier for the eye test.
 
 ```R
@@ -346,3 +347,18 @@ grid.arrange(p1,p2,nrow=1)
 <p align = "center">
 	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/bands.png" alt="Ranked Initial Cost" width="800" />
 </p>
+
+As most would expect, Toyota leads the pack in value. Even more impressive is how much more 
+a value the Camry and Corrolla have over the Honda Civic and Accord. Steer clear of the Chevy Impala though! 
+This all just reaffirms what we all know, Toyota makes consumer friendly vehicles.
+
+### Conclusions
+
+Before starting this short project, I honestly didnt know very much about the various car brands and 
+their reputations. It's really powerful that we can utilize some basic concepts and become more informed. To 
+reiterate, we retrieved lots of data from Craigslist. We cleaned the data of most the junk, then did some simple 
+regression in order to be able to predict the price range we expect when buying a used car.
+
+
+From here, we can find the sedan we would like and check if its asking price is above or below what our model predicts 
+it to be worth. We can then proceed to find any reasons as to why it appears to be a good deal. 
