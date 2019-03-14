@@ -7,9 +7,9 @@ for another blog post! Today, we will be doing some Non-Linear Regression in R.
 
 Similar to my last post, I've web-scraped car listings on Craigslist. Instead of looking 
 at age vs price, we are going to investigate odometer vs price. We will review the most popular sedans 
-and see which vehicle has a low initial cost, and a slow decay rate in value. 
+and see which vehicle has a decent initial cost, coupled with a slow decay rate in value. 
 
-# Shaping The Data
+### Shaping The Data
 
 ```R
 library(sqldf)
@@ -61,12 +61,13 @@ plot(auto$odometer,auto$price)
 	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/initial2.png" width="600" />
 </p>
 
-There is a clear indication of an inverse relationship. We will fit the following model:
+We will fit the following model:
 
 <p align="center">
 $$
-price_i = e^{a+b*odo_i} + \sigma_i
-$$    
+price_i = e^{a+b*odo_i} + \sigma_i \\
+\sigma_i \approx error
+$$
 </p>
 
 We'll see the most popular models and keep the top sedans. Moreover, we will change the units 
