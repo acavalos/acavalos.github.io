@@ -40,11 +40,6 @@ rownames(string_dist) <- row.names(auto)
 colnames(string_dist) <- row.names(car_models)
 
 closest <- apply(string_dist,1,which.min)
-
-auto[,'make'] <- NA
-auto[,'model'] <- NA
-auto[,'type'] <- NA
-
 auto[,c('make','model','type')] <- car_models[closest,c('brand','models','types')]
 ```
 
@@ -260,7 +255,7 @@ model fitting with the cleaned data. Normally outlier removal must be done with 
 are so significant and numerous, it is justified in this case. 
 
 <p align = "center">
-	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/outlier.png" alt="Example" width="600" height="337.5"/>
+	<img src ="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/outlier2.png" alt="Example" width="600" height="337.5"/>
 </p>
 
 ```R 
@@ -287,7 +282,7 @@ param.df$b.upr = sapply(model_list, function(x) t(x$B.conf["b",2]))
 
 For comparison with the previous image used, here is the new model with the outliers removed:
 <p align = "center">
-	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/ford%20fiesta.jpg" alt="cleaned" width="600" height = "337.5"/>
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/ford_fiesta2.png" alt="cleaned" width="600" height = "337.5"/>
 </p>
 
 The rest of the plots can be found [here](https://github.com/acavalos/acavalos.github.io/tree/master/images/auto)
