@@ -320,7 +320,7 @@ for(name in param.df$full_title){
 ```
 
 <p align = "center">
-	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay.png" alt="Ranked Decay" width="600" />
+	<img src="https://raw.githubusercontent.com/acavalos/acavalos.github.io/master/images/auto/decay2.png" alt="Ranked Decay" width="600" />
 </p>
 
 Briefly, we see Toyota makes reliable cars, as a slow decay rate infers less maintanence and repairs.
